@@ -39,33 +39,33 @@ with open('results/tab.txt', mode='w', encoding='utf-8') as f1:
     r = IPWhois(ip).lookup_rdap()
     countryjp = 'NoData'
     address = 'NoData'
-    
-    # 
+
+    #
     for item in iso3166_1:
 
       # 国コードより日本語名を取得
       if item['alpha2'] == r['network']['country']:
         countryjp = item['companyjp']
-      
+
       # 所在地(address)情報を取得
       for obj in r['objects'].values():
-        
+
         # contact 以下は存在しない場合があるため、例外処理を行い続行する
         try:
           for v in obj['contact']['address']:
-            
+
             # 改行と余分な空白を削除
             address = v['value'].replace('\n', ' ').strip()
-        except:
+        except Exception:
           continue
-        
+
         # 所在地(address)情報を取得した時点で終了
         if address:
           break
-    
+
     # results/tab.txt にタブ区切りで、IP、国名(日本語)、組織名、所在地を出力
     f1.write(f"{ip}\t{countryjp}\t{r['network']['name']}\t{address}\n")
-    
+
     # results/details/<ip>.json 取得した json データを IP 単位で出力
     with open(f'results/details/{ip}.json', mode='w', encoding='utf-8') as f2:
       f2.write(f"{json.dumps(r, indent=2)}")
