@@ -1,8 +1,0 @@
-{
-    "python.pythonPath": "env/bin/python",
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#1C039A",
-        "titleBar.activeBackground": "#2804D8",
-        "titleBar.activeForeground": "#FDFDFF"
-    }
-}
